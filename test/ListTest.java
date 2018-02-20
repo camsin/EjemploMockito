@@ -107,4 +107,43 @@ public class ListTest {
        verify(mockedList, atLeast(2)).add("five times");
        verify(mockedList, atMost(5)).add("three times");
    }
+   
+   /**
+    * Prueba con mockito para simulacion de un login y su banneo.
+    */
+   @Test
+   public void login(){
+       
+    //Declaro al usuario
+    Usuario usuario = mock(Usuario.class);
+       
+    //Le meto el nombre y la contra
+    when(usuario.getUsername()).thenReturn("ararat");
+    when(usuario.getPassword()).thenReturn("1111");
+    
+    //Aqui comprobamos que su contraseña esta mal
+    assertEquals(usuario.baneado(1,usuario.getUsername(), usuario.getPassword()), false);
+    
+      
+    //Le meto el nombre y la contra
+    when(usuario.getUsername()).thenReturn("ararat");
+    when(usuario.getPassword()).thenReturn("1233");
+    
+    //Aqui comprobamos que su contraseña esta mal
+    assertEquals(usuario.baneado(2, usuario.getUsername(), usuario.getPassword()), false);
+    
+    when(usuario.getUsername()).thenReturn("ararat");
+    when(usuario.getPassword()).thenReturn("1223");
+  
+    assertEquals(usuario.baneado(3, usuario.getUsername(), usuario.getPassword()), false);
+    
+       
+    when(usuario.getUsername()).thenReturn("ararat");
+    when(usuario.getPassword()).thenReturn("1111");
+  
+   assertEquals(usuario.baneado(4, usuario.getUsername(), usuario.getPassword()), true);
+     
+       
+   }
+ 
 }
